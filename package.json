@@ -1,5 +1,6 @@
 {
   "name": "lista-de-compras",
+  "homepage": "https://geovaniassis.dev.br/react/projeto001",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
