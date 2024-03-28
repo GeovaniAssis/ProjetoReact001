@@ -10,7 +10,7 @@ input{
 }
 ul{
   column-count: 3;
-  padding: 0px;
+  padding: 0px !important;
 }
 ul li{
   display: flex;
@@ -23,4 +23,16 @@ ul li{
 }
 ul li button{
   margin: 0 10px;
+}
+
+@media (max-width: 991px){
+  ul{
+    column-count: 2;
+  }
+}
+
+@media (max-width: 500px){
+  ul{
+    column-count: 1;
+  }
 }
