@@ -23,6 +23,10 @@ function App() {
   }
   function deletarProduto(id) {
     setProdutos(produtos.filter((produto) => produto.id !== id));
+    const sortedProdutos = produtos
+      .filter((produto) => produto.id !== id)
+      .sort((a, b) => a.value.localeCompare(b.value));
+    Cookies.set("produtos", JSON.stringify(sortedProdutos));
   }
   useEffect(() => {
     const savedProdutos = Cookies.get("produtos");
