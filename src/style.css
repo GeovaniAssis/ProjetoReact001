@@ -36,7 +36,9 @@ h1 {
   font-style: normal;
 }
 
-
+.App{
+  margin-bottom: 50px;
+}
 .col-md-10{
   padding-right: 0px !important;
 }
