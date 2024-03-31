@@ -1,6 +1,7 @@
 import { Titulo01 } from "./style";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { v4 } from "uuid";
+import Cookies from "js-cookie";
 
 function App() {
   const inputRef = useRef();
@@ -18,10 +19,17 @@ function App() {
     );
     setProdutos(sortedProdutos);
     inputRef.current.value = "";
+    Cookies.set("produtos", JSON.stringify(sortedProdutos));
   }
   function deletarProduto(id) {
     setProdutos(produtos.filter((produto) => produto.id !== id));
   }
+  useEffect(() => {
+    const savedProdutos = Cookies.get("produtos");
+    if (savedProdutos) {
+      setProdutos(JSON.parse(savedProdutos));
+    }
+  }, []);
 
   return (
     <div className="App">
