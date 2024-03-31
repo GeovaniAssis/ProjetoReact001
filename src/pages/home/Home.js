@@ -6,8 +6,17 @@ function App() {
   const inputRef = useRef();
   const [produtos, setProdutos] = useState([]);
 
-  function botaoAdicionar() {
-    setProdutos([{ id: v4(), value: inputRef.current.value }, ...produtos]);
+  function botaoAdicionar(event) {
+    event.preventDefault();
+    if (inputRef.current.value.trim().length < 2) {
+      alert("Por favor, digite no mínimo 2 caracteres.");
+      return;
+    }
+    const newProduto = { id: v4(), value: inputRef.current.value };
+    const sortedProdutos = [...produtos, newProduto].sort((a, b) =>
+      a.value.localeCompare(b.value)
+    );
+    setProdutos(sortedProdutos);
     inputRef.current.value = "";
   }
   function deletarProduto(id) {
@@ -15,38 +24,47 @@ function App() {
   }
 
   return (
-    <div className="App container">
-      <div className="row">
-        <div className="col-12 d-flex justify-content-center align-items-center">
-          <Titulo01>Lista de Compras</Titulo01>
+    <div className="App">
+      <div id="tituloDaPagina" className="container">
+        <div className="row">
+          <div className="col-12 d-flex justify-content-center align-items-center">
+            <Titulo01>Lista de Compras</Titulo01>
+          </div>
         </div>
+      </div>
 
-        <div className="col-md-10 col-12">
-          <input placehouder="Adicione produto" ref={inputRef}></input>
-        </div>
-        <div className="col-md-2 col-12">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={botaoAdicionar}
-          >
-            Adicionar
-          </button>
-        </div>
+      <div className="container">
+        <form className="row">
+          <div className="col-md-10 col-8 ">
+            <input
+              placeholder="Adicione o produto aqui..."
+              ref={inputRef}
+            ></input>
+          </div>
+          <div className="col-md-2 col-4">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={botaoAdicionar}
+            >
+              Adicionar
+            </button>
+          </div>
+        </form>
 
-        <div className="col-12">
-          <hr></hr>
-        </div>
+        <div className="row">
+          <div className="col-12">
+            <hr></hr>
+          </div>
 
-        <div className="col-12">
-          <ul>
-            {produtos.map((protudo) => (
-              <li key={protudo.id}>
+          {produtos.map((protudo) => (
+            <div className="col-lg-4 col-md-6 col-12">
+              <div className="itemName" key={protudo.id}>
                 {protudo.value}
                 <button onClick={() => deletarProduto(protudo.id)}>🗑</button>
-              </li>
-            ))}
-          </ul>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
